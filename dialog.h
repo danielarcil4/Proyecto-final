@@ -3,10 +3,12 @@
 
 #include <QDialog>
 #include <QGraphicsScene>
-#include <QGraphicsRectItem>
+#include <QGraphicsItem>
 #include <QKeyEvent>
 
 #include "muros.h"
+#include "personaje.h"
+#include "obstaculos.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -24,8 +26,12 @@ public:
 private:
     Ui::Dialog *ui;
     QGraphicsScene *scene;
-    Muros *muro1;
-    Muros *muro2;
-    QGraphicsRectItem *personaje = new QGraphicsRectItem;
+    Personaje *jugador;
+    QList <QGraphicsItem*> Muro;
+    QTimer *timer;
+
+signals:
+public slots:
+    void saltar();
 };
 #endif // DIALOG_H

@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>Resourse/Muros proyecto final.png</file>
+        <file>Resourse/Personaje 1.png</file>
+        <file>Resourse/Personaje 1 reverso.png</file>
+        <file>Resourse/mapa.png</file>
+        <file>Resourse/Muros proyecto final 2.png</file>
     </qresource>
 </RCC>

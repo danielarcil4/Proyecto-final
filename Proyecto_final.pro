@@ -9,14 +9,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    contador.cpp \
     main.cpp \
     dialog.cpp \
     muros.cpp \
+    obstaculos.cpp \
     personaje.cpp
 
 HEADERS += \
+    contador.h \
     dialog.h \
     muros.h \
+    obstaculos.h \
     personaje.h
 
 FORMS += \

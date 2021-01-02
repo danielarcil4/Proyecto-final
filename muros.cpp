@@ -1,6 +1,6 @@
 #include "muros.h"
 
-Muros::Muros(QObject *parent): QObject(parent)
+Muros::Muros()
 {
     Pixmap = new QPixmap(":/Resourse/Muros proyecto final.png");
     ancho = 750;
