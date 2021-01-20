@@ -1,5 +1,10 @@
 #include "obstaculos.h"
 
+void Obstaculos::setAlto(int value)
+{
+    alto = value;
+}
+
 Obstaculos::Obstaculos()
 {
     Pixmap = new QPixmap(":/Resourse/Muros proyecto final 2.png");

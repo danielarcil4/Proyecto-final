@@ -14,9 +14,12 @@ SOURCES += \
     enemigo_1.cpp \
     main.cpp \
     dialog.cpp \
+    menu.cpp \
     muros.cpp \
+    new_game.cpp \
     obstaculos.cpp \
     personaje.cpp \
+    ventana.cpp \
     vidas.cpp
 
 HEADERS += \
@@ -24,13 +27,19 @@ HEADERS += \
     contador.h \
     dialog.h \
     enemigo_1.h \
+    menu.h \
     muros.h \
+    new_game.h \
     obstaculos.h \
     personaje.h \
+    ventana.h \
     vidas.h
 
 FORMS += \
-    dialog.ui
+    dialog.ui \
+    menu.ui \
+    new_game.ui \
+    ventana.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

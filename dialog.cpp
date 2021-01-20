@@ -1,12 +1,14 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 
-
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Dialog)
 {
     ui->setupUi(this);
+    menu = new Menu;
+    menu->setModal(true);
+    menu->exec();
     scene = new QGraphicsScene;
     scene->setSceneRect(0,0,10000,1000);
     ui->graphicsView->setScene(scene);
@@ -19,11 +21,15 @@ Dialog::Dialog(QWidget *parent)
         scene->addItem(Muro.back());
     }
 
-    for (short int i=0, I=882;i<1;i++,I+=200) {
+    /*for (short int i=0, I=882;i<1;i++,I+=200) {
         Obstaculo.push_back(new Obstaculos);
         Obstaculo.back()->setPos(I,740);
         scene->addItem(Obstaculo.back());
-    }
+    }*/
+    Obstaculo.push_back(new Obstaculos);
+    Obstaculo.back()->setAlto(90);
+    Obstaculo.back()->setPos(1082,770);
+    scene->addItem(Obstaculo.back());
 
     Disparador1 = new Enemigo_1();
     Disparador1->setPos(720,790);
@@ -56,6 +62,7 @@ Dialog::Dialog(QWidget *parent)
     disparo->start(5000);
     connect(timer,SIGNAL(timeout()),this,SLOT(saltar()));
     connect(disparo,SIGNAL(timeout()),this,SLOT(Disparo()));
+
 }
 
 void Dialog::keyPressEvent(QKeyEvent *evento)
@@ -141,10 +148,20 @@ void Dialog::saltar()
                 balas.removeAt(i);
                 jugador->setVel(0,jugador->getVy());         
                 ui->progressBar->setValue(ui->progressBar->value()-25);
+
                 if(ui->progressBar->value()==0){
                     jugador->setPos(70,768);
+                    jugador->setVel(0,0);
                     ui->progressBar->setValue(100);
                     vidas->Decrementar();
+                    if(vidas->getVidas()==0){
+                        ventana = new Ventana;
+                        ventana->setModal(true);
+                        ventana->exec();
+                        tiempo->setcontador(100);
+                        vidas->setVidas(4);
+                        vidas->Decrementar();
+                        }
                     }
                 }
         }
@@ -155,6 +172,7 @@ void Dialog::saltar()
             balas.removeAt(i);
         }
     }
+
 }
 
 void Dialog::Disparo()
@@ -169,4 +187,9 @@ void Dialog::Disparo()
     scene->addItem(balas.back());
 
 }
+void Ventana::on_pushButton_clicked()
+{
+  this->close();
+}
+
 

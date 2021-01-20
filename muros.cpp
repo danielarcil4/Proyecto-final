@@ -1,5 +1,10 @@
 #include "muros.h"
 
+void Muros::setAlto(int value)
+{
+    alto = value;
+}
+
 Muros::Muros()
 {
     Pixmap = new QPixmap(":/Resourse/Muros proyecto final.png");

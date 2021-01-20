@@ -8,5 +8,8 @@
         <file>Resourse/Enemigo_1.png</file>
         <file>../informatica/Sprites/3 Scorpio/Scorpio_attack.png</file>
         <file>Resourse/Scorpio_attack.png</file>
+        <file>../informatica/Menu.jpg</file>
+        <file>Resourse/Botones.png</file>
+        <file>Resourse/Menu.png</file>
     </qresource>
 </RCC>

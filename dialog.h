@@ -13,6 +13,8 @@
 #include "enemigo_1.h"
 #include "bala.h"
 #include "vidas.h"
+#include "ventana.h"
+#include "menu.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -40,6 +42,8 @@ private:
     Vidas *vidas;
     Enemigo_1 *Disparador1;
     Enemigo_1 *Scorpion;
+    Ventana *ventana;
+    Menu *menu;
 
 
 signals:
