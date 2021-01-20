@@ -3,7 +3,7 @@
 Obstaculos::Obstaculos()
 {
     Pixmap = new QPixmap(":/Resourse/Muros proyecto final 2.png");
-    ancho = 41;
+    ancho = 40;
     alto = 150;
     this->update(-ancho/2,-alto/2,ancho,alto);
 }

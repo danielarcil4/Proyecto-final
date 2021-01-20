@@ -83,10 +83,8 @@ void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void Personaje::salto()
 {
-    if(y()<755)
-        Vy = Vy+10;
-
-    setPos( x() + Vx , y() + Vy - Normal+masa*g);
+    setPos( x() + Vx , y() + Vy );
+    //qDebug()<<Vy;
 }
 
 void Personaje::setVel(float Vx_, float Vy_)

@@ -14,7 +14,6 @@ class Muros: public QObject,public QGraphicsItem
 public:
     Muros();
 
-    QTimer *timer;
     QPixmap *Pixmap;
 
     QRectF boundingRect() const;

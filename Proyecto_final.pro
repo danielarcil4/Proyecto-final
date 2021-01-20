@@ -9,19 +9,25 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bala.cpp \
     contador.cpp \
+    enemigo_1.cpp \
     main.cpp \
     dialog.cpp \
     muros.cpp \
     obstaculos.cpp \
-    personaje.cpp
+    personaje.cpp \
+    vidas.cpp
 
 HEADERS += \
+    bala.h \
     contador.h \
     dialog.h \
+    enemigo_1.h \
     muros.h \
     obstaculos.h \
-    personaje.h
+    personaje.h \
+    vidas.h
 
 FORMS += \
     dialog.ui
@@ -35,4 +41,5 @@ RESOURCES += \
     Resourse.qrc
 
 DISTFILES += \
+    ../informatica/Sprites/3 Scorpio/Scorpio_attack.png \
     Resourse/Muros proyecto final.png

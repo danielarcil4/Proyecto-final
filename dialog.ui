@@ -12,7 +12,7 @@
   </property>
   <property name="font">
    <font>
-    <family>Viner Hand ITC</family>
+    <family>Comic Sans MS</family>
     <pointsize>9</pointsize>
     <underline>true</underline>
    </font>
@@ -24,7 +24,7 @@
    <string>Video Juego Proyecto Final</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="1" column="0">
     <widget class="QGraphicsView" name="graphicsView">
      <property name="maximumSize">
       <size>
@@ -37,6 +37,13 @@
      </property>
      <property name="sizeAdjustPolicy">
       <enum>QAbstractScrollArea::AdjustToContents</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>100</number>
      </property>
     </widget>
    </item>

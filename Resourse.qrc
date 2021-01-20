@@ -5,5 +5,8 @@
         <file>Resourse/Personaje 1 reverso.png</file>
         <file>Resourse/mapa.png</file>
         <file>Resourse/Muros proyecto final 2.png</file>
+        <file>Resourse/Enemigo_1.png</file>
+        <file>../informatica/Sprites/3 Scorpio/Scorpio_attack.png</file>
+        <file>Resourse/Scorpio_attack.png</file>
     </qresource>
 </RCC>

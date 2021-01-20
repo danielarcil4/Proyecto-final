@@ -13,8 +13,6 @@ class Obstaculos: public QObject,public QGraphicsItem
     int filas,columnas;
 public:
     Obstaculos();
-
-    QTimer *timer;
     QPixmap *Pixmap;
 
     QRectF boundingRect() const;

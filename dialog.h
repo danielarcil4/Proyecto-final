@@ -9,6 +9,10 @@
 #include "muros.h"
 #include "personaje.h"
 #include "obstaculos.h"
+#include "contador.h"
+#include "enemigo_1.h"
+#include "bala.h"
+#include "vidas.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -27,11 +31,20 @@ private:
     Ui::Dialog *ui;
     QGraphicsScene *scene;
     Personaje *jugador;
-    QList <QGraphicsItem*> Muro;
+    QList <Muros*> Muro;
+    QList <Obstaculos*> Obstaculo;
+    QList <Bala*> balas;
     QTimer *timer;
+    QTimer *disparo;
+    Contador *tiempo;
+    Vidas *vidas;
+    Enemigo_1 *Disparador1;
+    Enemigo_1 *Scorpion;
+
 
 signals:
 public slots:
     void saltar();
+    void Disparo();
 };
 #endif // DIALOG_H
