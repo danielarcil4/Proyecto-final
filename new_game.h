@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+
 namespace Ui {
 class New_Game;
 }
@@ -14,6 +15,9 @@ class New_Game : public QDialog
 public:
     explicit New_Game(QWidget *parent = nullptr);
     ~New_Game();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::New_Game *ui;

@@ -5,8 +5,6 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QTimer>
-#include <math.h>
-#include <cmath>
 #include <QDebug>
 
 
@@ -23,8 +21,6 @@ public:
 
     QRectF boundingRect() const;
     void paint(QPainter *painter,const QStyleOptionGraphicsItem *option,QWidget *widget = nullptr);
-
-    void salto();
 
     void setVel(float Vx,float Vy);
 

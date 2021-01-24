@@ -6,7 +6,6 @@
 #include <QGraphicsItem>
 #include <QKeyEvent>
 
-#include "muros.h"
 #include "personaje.h"
 #include "obstaculos.h"
 #include "contador.h"
@@ -32,18 +31,29 @@ public:
 private:
     Ui::Dialog *ui;
     QGraphicsScene *scene;
-    Personaje *jugador;
-    QList <Muros*> Muro;
+
+    //Qlists
     QList <Obstaculos*> Obstaculo;
     QList <Bala*> balas;
-    QTimer *timer;
-    QTimer *disparo;
-    Contador *tiempo;
-    Vidas *vidas;
+
+    //Enemigos
     Enemigo_1 *Disparador1;
     Enemigo_1 *Scorpion;
+
+    //ventanas
     Ventana *ventana;
     Menu *menu;
+
+    //timers
+    QTimer *timer;
+    QTimer *disparo;
+
+    //items
+    Contador *tiempo;
+    Vidas *vidas;
+    Personaje *jugador;
+
+
 
 
 signals:

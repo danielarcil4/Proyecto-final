@@ -15,7 +15,6 @@ SOURCES += \
     main.cpp \
     dialog.cpp \
     menu.cpp \
-    muros.cpp \
     new_game.cpp \
     obstaculos.cpp \
     personaje.cpp \
@@ -28,7 +27,6 @@ HEADERS += \
     dialog.h \
     enemigo_1.h \
     menu.h \
-    muros.h \
     new_game.h \
     obstaculos.h \
     personaje.h \

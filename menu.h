@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include "new_game.h"
+
 namespace Ui {
 class Menu;
 }
@@ -20,6 +22,7 @@ private slots:
 
 private:
     Ui::Menu *ui;
+    New_Game *game;
 };
 
 #endif // MENU_H

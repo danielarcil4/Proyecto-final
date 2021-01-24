@@ -81,12 +81,6 @@ void Personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawPixmap(-ancho/2,-alto/2,*Pixmap,columnas,0,ancho,alto);
 }
 
-void Personaje::salto()
-{
-    setPos( x() + Vx , y() + Vy );
-    //qDebug()<<Vy;
-}
-
 void Personaje::setVel(float Vx_, float Vy_)
 {
     Vx = Vx_;

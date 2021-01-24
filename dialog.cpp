@@ -15,21 +15,18 @@ Dialog::Dialog(QWidget *parent)
     scene->setBackgroundBrush(QBrush(QImage(":/Resourse/mapa.png")));
     this->resize(1500,1000);
     scene->addRect(scene->sceneRect());
-    for (short int i=0, I=380;i<8;i++,I+=745) {
-        Muro.push_back(new Muros);
-        Muro.back()->setPos(I,840);
-        scene->addItem(Muro.back());
-    }
 
-    /*for (short int i=0, I=882;i<1;i++,I+=200) {
+
+    for (short int i=0, I=882,y=740;i<4;i++,I+=200) {
+        y=740;
         Obstaculo.push_back(new Obstaculos);
-        Obstaculo.back()->setPos(I,740);
+        if(i==0){
+            Obstaculo.back()->setAlto(90);
+            y=770;
+        }
+        Obstaculo.back()->setPos(I,y);
         scene->addItem(Obstaculo.back());
-    }*/
-    Obstaculo.push_back(new Obstaculos);
-    Obstaculo.back()->setAlto(90);
-    Obstaculo.back()->setPos(1082,770);
-    scene->addItem(Obstaculo.back());
+    }
 
     Disparador1 = new Enemigo_1();
     Disparador1->setPos(720,790);
@@ -69,13 +66,12 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
 {
     switch (evento->key()) {
     case Qt::Key_W:
-        for(int i=0;i<Muro.size();i++){
-            for (int I=0;I<Obstaculo.size();I++){
-                if(jugador->collidesWithItem(Muro.at(i)) or jugador->collidesWithItem(Obstaculo.at(I))){
-                    jugador->setVel(jugador->getVx(),-60);
-                }
+        for (int I=0;I<Obstaculo.size();I++){
+            if(jugador->y()>765 or jugador->collidesWithItem(Obstaculo.at(I))){
+                jugador->setVel(jugador->getVx(),-60);
             }
         }
+
 
         break;
     case Qt::Key_A:
@@ -91,7 +87,7 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
         this->update(-jugador->getAncho()/2,-jugador->getAlto()/2,jugador->getAncho(),jugador->getAlto());
 
         for (int i=0;i<Obstaculo.size();i++ ) {
-            if(jugador->collidesWithItem(Obstaculo.at(i)) and jugador->x()<Obstaculo.at(i)->x()+20 and jugador->x()>Obstaculo.at(i)->x() and jugador->y()>Obstaculo.at(i)->y()-120)
+            if((jugador->x()<Obstaculo.at(i)->x()+20 and jugador->x()>Obstaculo.at(i)->x()) and jugador->y()>Obstaculo.at(i)->y()-120)
                 jugador->setVel(jugador->getVx()+20,jugador->getVy());
         }
         break;
@@ -107,7 +103,7 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
         this->update(-jugador->getAncho()/2,-jugador->getAlto()/2,jugador->getAncho(),jugador->getAlto());
 
         for (int i=0;i<Obstaculo.size();i++ ) {
-            if(jugador->collidesWithItem(Obstaculo.at(i)) and jugador->x()>Obstaculo.at(i)->x()-20 and jugador->x()<Obstaculo.at(i)->x() and /*posicion y del obstaculo*/jugador->y()>Obstaculo.at(i)->y()-120)
+            if((jugador->x()>Obstaculo.at(i)->x()-20 and jugador->x()<Obstaculo.at(i)->x()) and jugador->y()>Obstaculo.at(i)->y()-120)
                 jugador->setVel(jugador->getVx()-20,jugador->getVy());
                 }
 
@@ -123,27 +119,25 @@ Dialog::~Dialog()
 
 void Dialog::saltar()
 {
-    jugador->salto();
+    jugador->setPos( jugador->x() + jugador->getVx() , jugador->y() + jugador->getVy() );
     if(jugador->getVy()==0){
         if (jugador->getVx()!=0)
             jugador->setVx(jugador->getVx() - jugador->getVx()/3);
     }
     if(jugador->y()>765)
         jugador->setVel(jugador->getVx(),0);
-
-    //qDebug()<<Obstaculo.at(i)->y()-119;
+    else
+        jugador->setVy(jugador->getVy()+10);
 
     for (int i=0;i<Obstaculo.size();i++ ) {
-        if(jugador->y()<768 and !jugador->collidesWithItem(Obstaculo.at(i)))
-            jugador->setVy(jugador->getVy()+10);
-
+        //qDebug()<<QString::number(Obstaculo.size());
         if(jugador->collidesWithItem(Obstaculo.at(i)) and jugador->y()>Obstaculo.at(i)->y()-123)
             jugador->setVel(jugador->getVx(),0);
             }
     QList<QGraphicsItem *> colision = jugador->collidingItems();
     for (int i=0;i<colision.size();i++ ) {
         for (int I=0;I<balas.size();I++ ) {
-            if(jugador->collidesWithItem(colision.at(i)) and colision.at(i)== balas.at(I)){
+            if(colision.at(i)== balas.at(I)){
                 scene->removeItem(colision.at(i));
                 balas.removeAt(i);
                 jugador->setVel(0,jugador->getVy());         

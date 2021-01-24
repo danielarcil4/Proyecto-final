@@ -16,5 +16,8 @@ Menu::~Menu()
 
 void Menu::on_pushButton_clicked()
 {
-    qDebug()<<"";
+    game = new New_Game();
+    game->setModal(true);
+    game->exec();
+    this->close();
 }

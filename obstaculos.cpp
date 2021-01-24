@@ -20,5 +20,5 @@ QRectF Obstaculos::boundingRect() const
 
 void Obstaculos::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->drawPixmap(-ancho/2,-alto/2,*Pixmap,columnas,0,ancho,alto);
+    painter->drawPixmap(-ancho/2,-alto/2,*Pixmap,0,0,ancho,alto);
 }

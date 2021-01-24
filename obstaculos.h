@@ -10,7 +10,6 @@ class Obstaculos: public QObject,public QGraphicsItem
 {
     Q_OBJECT
     int ancho,alto;
-    int filas,columnas;
 public:
     Obstaculos();
     QPixmap *Pixmap;
