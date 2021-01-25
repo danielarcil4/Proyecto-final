@@ -4,6 +4,7 @@
 #include <QDialog>
 
 
+
 namespace Ui {
 class New_Game;
 }

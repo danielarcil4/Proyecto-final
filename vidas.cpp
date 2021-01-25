@@ -13,7 +13,7 @@ void Vidas::setVidas(int value)
 
 Vidas::Vidas(QGraphicsItem *parent):QGraphicsTextItem(parent)
 {
-    vidas=3;
+    vidas=1;
     setPlainText(QString("Vidas: ")+QString::number(vidas));
     setDefaultTextColor(Qt::red);
     setFont(QFont("Comic Sans MS",20));

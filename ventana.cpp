@@ -13,9 +13,14 @@ Ventana::~Ventana()
     delete ui;
 }
 
-
+void Ventana::on_pushButton_clicked()
+{
+    this->close();
+}
 
 void Ventana::on_pushButton_2_clicked()
 {
     this->close();
 }
+
+

@@ -3,7 +3,6 @@
 #include "QDebug"
 
 #include <fstream>
-//#include <iostream>
 
 using namespace std;
 
@@ -22,19 +21,19 @@ New_Game::~New_Game()
 
 void New_Game::on_pushButton_clicked()
 {
-    ofstream escritura;
+    ofstream Escritura;
+    string alo;
 
-    escritura.open("../Proyecto_final/BD.txt");
+    Escritura.open("../Proyecto_final/Usuarios.txt",std::ios::app);
 
-    if (!escritura.is_open())
+    if (!Escritura.is_open())
        {
         qDebug()<<"Error abriendo el archivo";
         exit(1);
        }
-    qDebug()<<ui->plainTextEdit->toPlainText();
-    //QString registro = ui->plainTextEdit->toPlainText();
-    escritura<< "";
-    escritura.close();
+
+    Escritura<< ui->plainTextEdit->toPlainText().toStdString() <<endl;
+    Escritura.close();
 
     this->close();
 }

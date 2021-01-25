@@ -5,11 +5,16 @@ void Obstaculos::setAlto(int value)
     alto = value;
 }
 
+void Obstaculos::setAncho(int value)
+{
+    ancho = value;
+}
+
 Obstaculos::Obstaculos()
 {
-    Pixmap = new QPixmap(":/Resourse/Muros proyecto final 2.png");
     ancho = 40;
     alto = 150;
+    Pixmap = new QPixmap(":/Resourse/Muros proyecto final 2.png");
     this->update(-ancho/2,-alto/2,ancho,alto);
 }
 

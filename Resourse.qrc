@@ -11,5 +11,9 @@
         <file>../informatica/Menu.jpg</file>
         <file>Resourse/Botones.png</file>
         <file>Resourse/Menu.png</file>
+        <file>Resourse/Pantano.png</file>
+        <file>Resourse/Vulture_attack.png</file>
+        <file>Resourse/Vulture_attack_reverse.png</file>
+        <file>Resourse/Meta.png</file>
     </qresource>
 </RCC>

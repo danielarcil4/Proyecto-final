@@ -21,3 +21,10 @@ void Menu::on_pushButton_clicked()
     game->exec();
     this->close();
 }
+
+void Menu::on_pushButton_4_clicked()
+{
+    cargar = new Load_Game();
+    cargar->setModal(true);
+    cargar->exec();
+}

@@ -7,8 +7,8 @@ void Bala::setR(int value)
 
 Bala::Bala()
 {
-    Vx=50;
-    Vy=50;
+    Vx=65;
+    Vy=60;
     t = 0;
     r = 5;
     timer = new QTimer();

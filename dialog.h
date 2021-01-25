@@ -14,6 +14,7 @@
 #include "vidas.h"
 #include "ventana.h"
 #include "menu.h"
+#include "pausa.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -34,15 +35,19 @@ private:
 
     //Qlists
     QList <Obstaculos*> Obstaculo;
-    QList <Bala*> balas;
+    QList <Obstaculos*> Pantano;
+    QList <Bala*> balas; 
 
     //Enemigos
     Enemigo_1 *Disparador1;
     Enemigo_1 *Scorpion;
+    Enemigo_1 *Ave;
 
     //ventanas
     Ventana *ventana;
     Menu *menu;
+    Pausa *pausa;
+    Load_Game *load;
 
     //timers
     QTimer *timer;
@@ -52,9 +57,7 @@ private:
     Contador *tiempo;
     Vidas *vidas;
     Personaje *jugador;
-
-
-
+    Obstaculos *Meta;
 
 signals:
 public slots:

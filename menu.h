@@ -4,6 +4,7 @@
 #include <QDialog>
 
 #include "new_game.h"
+#include "load_game.h"
 
 namespace Ui {
 class Menu;
@@ -20,9 +21,12 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_4_clicked();
+
 private:
     Ui::Menu *ui;
     New_Game *game;
+    Load_Game *cargar;
 };
 
 #endif // MENU_H

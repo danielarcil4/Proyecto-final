@@ -12,11 +12,13 @@ SOURCES += \
     bala.cpp \
     contador.cpp \
     enemigo_1.cpp \
+    load_game.cpp \
     main.cpp \
     dialog.cpp \
     menu.cpp \
     new_game.cpp \
     obstaculos.cpp \
+    pausa.cpp \
     personaje.cpp \
     ventana.cpp \
     vidas.cpp
@@ -26,17 +28,21 @@ HEADERS += \
     contador.h \
     dialog.h \
     enemigo_1.h \
+    load_game.h \
     menu.h \
     new_game.h \
     obstaculos.h \
+    pausa.h \
     personaje.h \
     ventana.h \
     vidas.h
 
 FORMS += \
     dialog.ui \
+    load_game.ui \
     menu.ui \
     new_game.ui \
+    pausa.ui \
     ventana.ui
 
 # Default rules for deployment.
