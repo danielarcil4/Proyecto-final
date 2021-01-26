@@ -17,6 +17,8 @@ Dialog::Dialog(QWidget *parent)
     menu->exec();
     pausa = new Pausa;
     load = new Load_Game;
+    load->setModal(true);
+    load->exec();
     scene = new QGraphicsScene;
     scene->setSceneRect(0,0,4500,1000);
     ui->graphicsView->setScene(scene);
@@ -204,7 +206,7 @@ void Dialog::saltar()
                     scene->addItem(Ave);
                 }
                 jugador->setVel(0,jugador->getVy());         
-                ui->progressBar->setValue(ui->progressBar->value()-100);
+                ui->progressBar->setValue(ui->progressBar->value()-25);
 
                 if(ui->progressBar->value()==0){
                     jugador->setPos(70,768);
@@ -269,6 +271,7 @@ void Dialog::saltar()
     else if(pausa->getSave()){
         ofstream Escritura;
         string alo;
+        int x;
 
         Escritura.open("../Proyecto_final/Usuarios.txt",std::ios::app);
 
@@ -278,13 +281,17 @@ void Dialog::saltar()
             exit(1);
            }
 
-        Escritura<< jugador->x()<<","<<jugador->y()<<","<<tiempo->getcontador()<<","<<vidas->getVidas()<<","<<ui->progressBar->value()<<endl;
+        x=jugador->x();
+
+        Escritura<< x<<","<<jugador->y()<<","<<tiempo->getcontador()<<","<<vidas->getVidas()<<","<<ui->progressBar->value()<<","<<endl;
         Escritura.close();
         pausa->setSave(false);
     }
-    qDebug()<<"Error";
+    //qDebug()<<"Error";
     if(load->getLoad()==true){
-        Load_Game().setLoad(false);
+        qDebug()<<load->getLoad();
+
+
         ifstream Lectura;
         string ID,cargar;
 
@@ -296,24 +303,56 @@ void Dialog::saltar()
             exit(1);
            }
         Lectura>>ID;
-        Lectura>>ID;
+
 
         while(!Lectura.eof()){
-            for (int i=0,I=0,cont=0; i<ID.length();i++) {
-                if(ID.at(i)==','){
-                    cargar = ID.substr(I,i);
-                    I=i;
-                    cont++;
-                }
-
+            if(ID == load->getUsuario().toStdString()){
+               Lectura>>ID;
+               break;
             }
-            Lectura>>ID;
-            Lectura>>ID;
+            else{
+                Lectura>>ID;
+                Lectura>>ID;
+            }
         }
-
         Lectura.close();
+        int x=0,y=0;
+        for (long long unsigned int i=0,I=0,cont=0; i<ID.length();i++) {
+            if(ID.at(i)==','){
+                cargar = ID.substr(I,i-I);
+                I=i+1;
+                if(cont==0)
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x += (cargar.at(h)-48)*pow(10,H);
+                if(cont==1)
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        y += (cargar.at(h)-48)*pow(10,H);
+                if(cont==2){
+                    jugador->setPos(x,y);
+                    x=0;
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x += (cargar.at(h)-48)*pow(10,H);
+                }
+                if(cont==3){
+                    tiempo->setcontador(x);
+                    x=0;
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x += (cargar.at(h)-48)*pow(10,H);
+                }
+                if(cont==4){
+                    vidas->setVidas(x+1);
+                    vidas->Decrementar();
+                    x=0;
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x += (cargar.at(h)-48)*pow(10,H);
+                    ui->progressBar->setValue(x);
+                }
+                cont++;
+            }
 
+        }
     }
+    load->setLoad(false);
 
 }
 
