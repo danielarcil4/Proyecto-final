@@ -18,6 +18,11 @@ public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
 
+    bool getLoader() const;
+    void setLoader(bool value);
+
+    bool getNewGames() const;
+
 private slots:
     void on_pushButton_clicked();
 
@@ -27,6 +32,8 @@ private:
     Ui::Menu *ui;
     New_Game *game;
     Load_Game *cargar;
+    bool loader;
+    bool NewGames;
 };
 
 #endif // MENU_H

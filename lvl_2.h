@@ -1,5 +1,5 @@
-#ifndef DIALOG_H
-#define DIALOG_H
+#ifndef LVL_2_H
+#define LVL_2_H
 
 #include <QDialog>
 #include <QGraphicsScene>
@@ -13,26 +13,27 @@
 #include "enemigo_1.h"
 #include "bala.h"
 #include "vidas.h"
-#include "ventana.h"
-#include "menu.h"
 #include "pausa.h"
-#include "lvl_2.h"
+#include "ventana.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class Dialog; }
-QT_END_NAMESPACE
+namespace Ui {
+class Lvl_2;
+}
 
-class Dialog : public QDialog
+class Lvl_2 : public QDialog
 {
     Q_OBJECT
 
 public:
-    Dialog(QWidget *parent = nullptr);
+    explicit Lvl_2(QWidget *parent = nullptr);
     void keyPressEvent(QKeyEvent * evento);
-    ~Dialog();
+    ~Lvl_2();
+
+    bool getLoadlvl() const;
+    void setLoadlvl(bool value);
 
 private:
-    Ui::Dialog *ui;
+    Ui::Lvl_2 *ui;
     QGraphicsScene *scene;
     int nivel;
     int dificultad;
@@ -40,20 +41,18 @@ private:
     //Qlists
     QList <Obstaculos*> Obstaculo;
     QList <Obstaculos*> Pantano;
-    QList <Bala*> balas; 
+    QList <Bala*> balas;
 
     //Enemigos
     Enemigo_1 *Disparador1;
     Enemigo_1 *Scorpion;
     Enemigo_1 *Ave;
+    Enemigo_1 *Scorpion2;
+    Enemigo_1 *Ave2;
 
     //ventanas
-    Ventana *ventana;
-    Menu *menu;
     Pausa *pausa;
-    Load_Game *load;
-    Lvl_2 *lvl2;
-    New_Game *nuevo;
+    Ventana *ventana;
 
     //timers
     QTimer *timer;
@@ -65,10 +64,12 @@ private:
     Personaje *jugador;
     Obstaculos *Meta;
 
+    bool loadlvl;
 
 signals:
 public slots:
     void saltar();
     void Disparo();
 };
-#endif // DIALOG_H
+
+#endif // LVL_2_H

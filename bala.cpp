@@ -31,6 +31,17 @@ void Bala::Move()
 {
     if(r==5)
         setPos(x(),y()-5);
+    else if(r==4){
+        t+=0.1;
+        V= sqrt((Vx*Vx)+(Vy*Vy));
+        angulo= atan2(Vy,Vx);
+        Ax= Vx*cos(angulo);
+        Ay= Vy*sin(angulo);
+        if(y()<755)
+            Vy = V*sin(angulo) - 10*t;
+
+        setPos(x() + (Vx*t + (Ax/2)*t*t), y() + -1*((Vy*t)+(Ay/2)*t*t));
+    }
     else{
         t+=0.1;
         V= sqrt((Vx*Vx)+(Vy*Vy));

@@ -7,6 +7,8 @@ Menu::Menu(QWidget *parent) :
     ui(new Ui::Menu)
 {
     ui->setupUi(this);
+    loader = false;
+    NewGames = false;
 }
 
 Menu::~Menu()
@@ -16,13 +18,27 @@ Menu::~Menu()
 
 void Menu::on_pushButton_clicked()
 {
-    game = new New_Game();
-    game->setModal(true);
-    game->exec();
+    NewGames=true;
     this->close();
 }
 
 void Menu::on_pushButton_4_clicked()
 {
+    loader = true;
     this->close();
+}
+
+bool Menu::getNewGames() const
+{
+    return NewGames;
+}
+
+bool Menu::getLoader() const
+{
+    return loader;
+}
+
+void Menu::setLoader(bool value)
+{
+    loader = value;
 }

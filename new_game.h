@@ -17,11 +17,14 @@ public:
     explicit New_Game(QWidget *parent = nullptr);
     ~New_Game();
 
+    int getDificultad() const;
+
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::New_Game *ui;
+    int dificultad;
 };
 
 #endif // NEW_GAME_H

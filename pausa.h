@@ -22,6 +22,8 @@ public:
     bool getSave() const;
     void setSave(bool value);
 
+    int getLineas() const;
+
 private slots:
     void on_pushButton_clicked();
 
@@ -31,6 +33,8 @@ private:
     Ui::Pausa *ui;
     bool reset;
     bool save;
+    int Lineas;
+    short int veces;
 };
 
 #endif // PAUSA_H

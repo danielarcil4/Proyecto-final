@@ -12,6 +12,7 @@ New_Game::New_Game(QWidget *parent) :
     ui(new Ui::New_Game)
 {
     ui->setupUi(this);
+    dificultad=0;
 }
 
 New_Game::~New_Game()
@@ -33,7 +34,22 @@ void New_Game::on_pushButton_clicked()
        }
 
     Escritura<< ui->plainTextEdit->toPlainText().toStdString() <<endl;
+    Escritura<< "70,768,60,3,100,1,"+ui->comboBox->currentText().toStdString()+","<<endl;
     Escritura.close();
 
+    qDebug()<<ui->comboBox->currentText();
+
+    if(ui->comboBox->currentText().toStdString()=="Facil")
+        dificultad=1;
+    if(ui->comboBox->currentText().toStdString()=="Normal")
+        dificultad=2;
+    if(ui->comboBox->currentText().toStdString()=="Dificil")
+        dificultad=3;
     this->close();
 }
+
+int New_Game::getDificultad() const
+{
+    return dificultad;
+}
+

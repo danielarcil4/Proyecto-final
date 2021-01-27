@@ -1,33 +1,22 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "lvl_2.h"
+#include "ui_lvl_2.h"
 
 #include <fstream>
 
 using namespace std;
 
-short int i=-5;
+short int w=-5,W=-5;
 
-Dialog::Dialog(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dialog)
+Lvl_2::Lvl_2(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Lvl_2)
 {
     ui->setupUi(this);
-    nivel=1;
-    menu = new Menu;
-    menu->setModal(true);
-    menu->exec();  
+    nivel=2;
+    /*nuevo = new New_Game;
+    dificultad=nuevo->getDificultad();*/
+    loadlvl=false;
     pausa = new Pausa;
-    load = new Load_Game;
-    if(menu->getLoader()){
-        load->setModal(true);
-        load->exec();
-    }
-    nuevo = new New_Game;
-    if(menu->getNewGames()){
-        nuevo->setModal(true);
-        nuevo->exec();
-    }
-    dificultad=nuevo->getDificultad();
     scene = new QGraphicsScene;
     scene->setSceneRect(0,0,4500,930);
     ui->graphicsView->setScene(scene);
@@ -36,52 +25,70 @@ Dialog::Dialog(QWidget *parent)
     scene->addRect(scene->sceneRect());
 
 
-    for (short int i=0, I=882,y=740;i<8;i++,I+=350) {
+    for (short int i=0, I=2150,y=740;i<6;i++,I+=350) {
         y=740;
         Obstaculo.push_back(new Obstaculos);
-        if(i==0 or i==3 or i==4 or i==7){
+        if(i==1 or i==2 or i==4){
             Obstaculo.back()->setAlto(60);
             y=785;
         }
+        if(i==0){
+            I=720;
+        }
         if(i==4){
-            I=2500;
+            I=2300;
+        }
+        if(i==5){
+            I=3000;
         }
         Obstaculo.back()->setPos(I,y);
         scene->addItem(Obstaculo.back());
     }
 
-    for (short int i=0, I=1050,y=815;i<3;i++,I+=350) {
+    for (short int i=0, I=1850,y=815;i<3;i++,I+=350) {
         Pantano.push_back(new Obstaculos);
         Pantano.back()->setAncho(200);
         Pantano.back()->setAlto(20);
         Pantano.back()->Pixmap = new QPixmap(":/Resourse/Pantano.png");
+        if(i==0)
+            I=1250;
         Pantano.back()->setPos(I,y);
         scene->addItem(Pantano.back());
     }
 
-    for (short int i=0, I=2650,y=790;i<3;i++,I+=350) {
+    for (short int i=0, I=2400,y=790;i<3;i++,I+=350) {
         Disparador1 = new Enemigo_1();
         Disparador1->setPos(I,y);
         scene->addItem(Disparador1);
     }
 
     Disparador1 = new Enemigo_1();
-    Disparador1->setPos(720,790);
+    Disparador1->setPos(800,790);
     scene->addItem(Disparador1);
 
     Ave = new Enemigo_1();
-    Ave->setPos(1550,670);
+    Ave->setPos(800,700);
     Ave->setAlto(70);
     Ave->setAncho(70);
     Ave->Pixmap = new QPixmap(":/Resourse/Vulture_attack.png");
     scene->addItem(Ave);
 
-    Scorpion = new Enemigo_1();
-    Scorpion->setPos(2050,780);
-    Scorpion->setAlto(70);
-    Scorpion->setAncho(70);
-    Scorpion->Pixmap = new QPixmap(":/Resourse/Scorpio_attack.png");
-    scene->addItem(Scorpion);
+    for (short int i=0, I=500,y=780;i<2;i++,I+=1700) {
+        Scorpion = new Enemigo_1();
+        Scorpion->setPos(I,y);
+        Scorpion->setAlto(70);
+        Scorpion->setAncho(70);
+        Scorpion->Pixmap = new QPixmap(":/Resourse/Scorpio_attack_reverse.png");
+        if(i==1)Scorpion->Pixmap = new QPixmap(":/Resourse/Scorpio_attack.png");
+        scene->addItem(Scorpion);
+    }
+
+    Ave2 = new Enemigo_1();
+    Ave2->setPos(2000,600);
+    Ave2->setAlto(70);
+    Ave2->setAncho(70);
+    Ave2->Pixmap = new QPixmap(":/Resourse/Vulture_attack.png");
+    scene->addItem(Ave2);
 
     tiempo = new Contador();
     scene->addItem(tiempo);
@@ -99,27 +106,22 @@ Dialog::Dialog(QWidget *parent)
     Meta->Pixmap = new QPixmap(":/Resourse/Meta.png");
     scene->addItem(Meta);
 
-    //70
     jugador = new Personaje();
-    jugador->setPos(3900,768);
+    jugador->setPos(70,768);
+    jugador->setVel(0,0);
 
     scene->addItem(jugador);
 
     timer = new QTimer();
     timer->start(100);
     disparo = new QTimer();
-    if(dificultad==1)
-        disparo->start(5000);
-    if(dificultad==2)
-        disparo->start(4500);
-    if(dificultad==3)
-        disparo->start(4000);
+    disparo->start(5000);
     connect(timer,SIGNAL(timeout()),this,SLOT(saltar()));
     connect(disparo,SIGNAL(timeout()),this,SLOT(Disparo()));
 
 }
 
-void Dialog::keyPressEvent(QKeyEvent *evento)
+void Lvl_2::keyPressEvent(QKeyEvent *evento)
 {
     switch (evento->key()) {
     case Qt::Key_Escape:
@@ -161,7 +163,7 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
         jugador->setVel(20,jugador->getVy());
         for (int I=0;I<Pantano.size();I++) {
             if(jugador->x()>Pantano.at(I)->x()-130 and jugador->x()<Pantano.at(I)->x()+130 and jugador->y()>755)
-                jugador->setVel(5,jugador->getVy());           
+                jugador->setVel(5,jugador->getVy());
         }
         tiempo->setPos(jugador->x()+150,tiempo->y());
         vidas->setPos(jugador->x(),vidas->y());
@@ -182,13 +184,8 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
 
 }
 
-Dialog::~Dialog()
-{
-    delete ui;
-}
 
-
-void Dialog::saltar()
+void Lvl_2::saltar()
 {
     jugador->setPos( jugador->x() + jugador->getVx() , jugador->y() + jugador->getVy() );
     if(jugador->getVy()==0){
@@ -214,13 +211,21 @@ void Dialog::saltar()
                 balas.removeAt(i);
                 if(colision.at(i)==Ave){
                     Ave = new Enemigo_1();
-                    Ave->setPos(1550,670);
+                    Ave->setPos(800,700);
                     Ave->setAlto(70);
                     Ave->setAncho(70);
                     Ave->Pixmap = new QPixmap(":/Resourse/Vulture_attack_reverse.png");
                     scene->addItem(Ave);
                 }
-                jugador->setVel(0,jugador->getVy());         
+                if(colision.at(i)==Ave2){
+                    Ave2 = new Enemigo_1();
+                    Ave2->setPos(2000,700);
+                    Ave2->setAlto(70);
+                    Ave2->setAncho(70);
+                    Ave2->Pixmap = new QPixmap(":/Resourse/Vulture_attack_reverse.png");
+                    scene->addItem(Ave2);
+                }
+                jugador->setVel(0,jugador->getVy());
                 ui->progressBar->setValue(ui->progressBar->value()-25);
 
                 if(ui->progressBar->value()==0){
@@ -247,21 +252,29 @@ void Dialog::saltar()
         }
     }
 
-    Ave->setPos(Ave->x()+i,Ave->y());
-    if(Ave->x()<=1545){
-      i = 10;
+    Ave->setPos(Ave->x()+w,Ave->y());
+    if(Ave->x()<=800){
+      w = 10;
       Ave->Pixmap = new QPixmap(":/Resourse/Vulture_attack_reverse.png");
     }
-    else if(Ave->x()>=2500){
-      i = -10;
+    else if(Ave->x()>=1650){
+      w = -10;
       Ave->Pixmap = new QPixmap(":/Resourse/Vulture_attack.png");
     }
+    Ave2->setPos(Ave2->x()+W,Ave2->y());
+    if(Ave2->x()<=2000){
+      W = 10;
+      Ave2->Pixmap = new QPixmap(":/Resourse/Vulture_attack_reverse.png");
+    }
+    else if(Ave2->x()>=3000){
+      W = -10;
+      Ave2->Pixmap = new QPixmap(":/Resourse/Vulture_attack.png");
+    }
     if(jugador->x()>4000){
-        delete ui;
-        this->close();
-        lvl2 = new Lvl_2;
-        lvl2->setModal(true);
-        lvl2->exec();
+        //this->close();
+        //lvl2 = new Lvl_2;
+        //lvl2->setModal(true);
+        //lvl2->exec();
     }
     if(tiempo->getcontador()<=0){
         jugador->setPos(70,768);
@@ -290,8 +303,8 @@ void Dialog::saltar()
     else if(pausa->getSave()){
         ofstream Escritura;
         ifstream Lectura;
-        string Datos,Guardar="",dific;
-        stringstream posx,posy,cont,lives,bar,lvl;
+        string Datos,Guardar="";
+        stringstream posx,posy,cont,lives,bar;
 
         int x;
         Lectura.open("../Proyecto_final/Usuarios.txt");
@@ -307,14 +320,7 @@ void Dialog::saltar()
         cont<<tiempo->getcontador();
         lives<<vidas->getVidas();
         bar<<ui->progressBar->value();
-        lvl<<nivel;
-        if(dificultad==1)
-            dific="Facil";
-        if(dificultad==2)
-            dific="Normal";
-        if(dificultad==3)
-            dific="Dificil";
-        Guardar += posx.str()+","+posy.str()+","+cont.str()+","+lives.str()+","+bar.str()+","+lvl.str()+","+dific+",";
+        Guardar += posx.str()+","+posy.str()+","+cont.str()+","+lives.str()+","+bar.str()+",";
 
         Escritura.open("../Proyecto_final/Usuarios.txt");
 
@@ -327,9 +333,8 @@ void Dialog::saltar()
         Escritura.close();
         pausa->setSave(false);
     }
-
-    if(load->getLoad()==true){
-        ifstream Lectura;
+    if(loadlvl==true){
+       /* ifstream Lectura;
         string ID,cargar;
 
         Lectura.open("../Proyecto_final/Usuarios.txt");
@@ -381,7 +386,7 @@ void Dialog::saltar()
                     vidas->Decrementar();
                     x=0;
                     for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
-                        x += (cargar.at(h)-48)*pow(10,H);       
+                        x += (cargar.at(h)-48)*pow(10,H);
                 }
                 if(cont==5){
                     ui->progressBar->setValue(x);
@@ -399,39 +404,45 @@ void Dialog::saltar()
                 cont++;
             }
 
-        }
-    }
-    load->setLoad(false);
-    if(nivel==2){
-        delete ui;
-        this->close();
-        lvl2 = new Lvl_2;
-        lvl2->setLoadlvl(true);
-        lvl2->setModal(true);
-        lvl2->exec();
+        }*/
     }
 }
 
-void Dialog::Disparo()
+
+
+void Lvl_2::Disparo()
 {
     balas.push_back(new Bala);
-    balas.back()->setPos(720,755);
+    balas.back()->setPos(800,755);
     scene->addItem(balas.back());
 
-    for (short int i=0, I=2650,y=755;i<3;i++,I+=350) {
+    for (short int i=0, I=2400,y=755;i<3;i++,I+=350) {
         balas.push_back(new Bala);
         balas.back()->setPos(I,y);
         scene->addItem(balas.back());
     }
-
-    balas.push_back(new Bala);
-    balas.back()->setPos(2050,755);
-    balas.back()->setR(6);
-    scene->addItem(balas.back());
+    for (short int i=0, I=500,r=4,y=755;i<2;i++,I+=1700) {
+        balas.push_back(new Bala);
+        if(i==1)
+            r=6;
+        balas.back()->setPos(I,y);
+        balas.back()->setR(r);
+        scene->addItem(balas.back());
+    }
 
 }
 
+Lvl_2::~Lvl_2()
+{
+    delete ui;
+}
 
+bool Lvl_2::getLoadlvl() const
+{
+    return loadlvl;
+}
 
-
-
+void Lvl_2::setLoadlvl(bool value)
+{
+    loadlvl = value;
+}
