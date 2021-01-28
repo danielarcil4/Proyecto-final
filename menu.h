@@ -5,6 +5,7 @@
 
 #include "new_game.h"
 #include "load_game.h"
+#include "eliminar_partida.h"
 
 namespace Ui {
 class Menu;
@@ -33,10 +34,13 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::Menu *ui;
     New_Game *game;
     Load_Game *cargar;
+    Eliminar_partida *eliminar;
     bool loader;
     bool NewGames;
     bool cerrar;

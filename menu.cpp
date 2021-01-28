@@ -59,3 +59,10 @@ void Menu::setCerrar(bool value)
 {
     cerrar = value;
 }
+
+void Menu::on_pushButton_3_clicked()
+{
+    eliminar = new Eliminar_partida;
+    eliminar->setModal(true);
+    eliminar->exec();
+}

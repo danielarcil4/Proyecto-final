@@ -15,6 +15,9 @@ public:
     explicit Puntajes(QWidget *parent = nullptr);
     ~Puntajes();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Puntajes *ui;
 };

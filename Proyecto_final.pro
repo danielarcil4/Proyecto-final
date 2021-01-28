@@ -12,6 +12,7 @@ CONFIG += c++11
 SOURCES += \
     bala.cpp \
     contador.cpp \
+    eliminar_partida.cpp \
     enemigo_1.cpp \
     load_game.cpp \
     main.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     bala.h \
     contador.h \
     dialog.h \
+    eliminar_partida.h \
     enemigo_1.h \
     load_game.h \
     menu.h \
@@ -44,6 +46,7 @@ HEADERS += \
 
 FORMS += \
     dialog.ui \
+    eliminar_partida.ui \
     load_game.ui \
     menu.ui \
     misiones.ui \

@@ -12,7 +12,7 @@ Dialog::Dialog(QWidget *parent)
     , ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    menu = new Menu;
+    menu = new Menu;  
     musica = new QMediaPlayer;
     musica->setMedia(QUrl("qrc:/Resourse/kirby-sand-canyon.mp3"));
     musica->play();
@@ -118,10 +118,10 @@ Dialog::Dialog(QWidget *parent)
     scene->addItem(Meta);
 
     jugador = new Personaje();
-    jugador->setPos(3900,768);
+    jugador->setPos(70,768);
     //jugador2
     jugador2 = new Personaje();
-    jugador2->setPos(3900,768);
+    jugador2->setPos(90,768);
 
     scene->addItem(jugador);
     scene->addItem(jugador2);
@@ -564,24 +564,45 @@ void Dialog::saltar()
         this->close();
         delete ui;
         ofstream Escritura;
+        ifstream Lectura;
         stringstream puntaje,puntaje2;
-        Escritura.open("../Proyecto_final/Puntajes.txt",std::ios::app);
+        string Data,Guardar;
+        int lineas=0;
+        Lectura.open("../Proyecto_final/Puntajes.txt");
 
+
+        puntaje<<Puntaje;
+        puntaje2<<Puntaje2;
+        if(menu->getLoader()){
+            Guardar+= load->getUsuario().toStdString() + "   " + puntaje.str()+"\n";
+            Guardar+= load->getUsuario2().toStdString() + "   " + puntaje2.str()+"\n";
+        }
+        else{
+            Guardar+= nuevo->getUsuario().toStdString() + "   " + puntaje.str()+"\n";
+            Guardar+= nuevo->getUsuario2().toStdString() + "   " + puntaje2.str()+"\n";
+        }
+
+        Lectura>>Data;
+
+        while(!Lectura.eof()) {
+            if(lineas%2==0)
+                Guardar+=Data+"   ";
+            else
+                Guardar+=Data+"\n";
+            Lectura>>Data;
+            lineas++;
+            if(lineas==16)break;
+        }
+        Lectura.close();
+
+        Escritura.open("../Proyecto_final/Puntajes.txt");
         if (!Escritura.is_open())
            {
             qDebug()<<"Error abriendo el archivo";
             exit(1);
            }
-        puntaje<<Puntaje;
-        puntaje2<<Puntaje2;
-        if(menu->getLoader()){
-            Escritura<< load->getUsuario().toStdString() + "   " + puntaje.str()+"\n"<<endl;
-            Escritura<< load->getUsuario2().toStdString() + "   " + puntaje2.str()+"\n"<<endl;
-        }
-        else{
-            Escritura<< nuevo->getUsuario().toStdString() + "   " + puntaje.str()+"\n"<<endl;
-            Escritura<< nuevo->getUsuario2().toStdString() + "   " + puntaje2.str()+"\n"<<endl;
-        }
+        Escritura<<Guardar;
+
         Escritura.close();
         puntajes = new Puntajes;
         puntajes->setModal(true);

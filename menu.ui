@@ -16,14 +16,14 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>190</y>
-     <width>511</width>
-     <height>101</height>
+     <x>220</x>
+     <y>180</y>
+     <width>361</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-image: url(:/Resourse/Botones.png);
+    <string notr="true">border-image: url(:/Resourse/Botones.png);
 font: 28pt &quot;Stencil&quot;;</string>
    </property>
    <property name="text">
@@ -49,15 +49,15 @@ font: 28pt &quot;Stencil&quot;;</string>
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>340</y>
-     <width>511</width>
-     <height>101</height>
+     <x>220</x>
+     <y>290</y>
+     <width>361</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-image: url(:/Resourse/Botones.png);
-font: 28pt &quot;Stencil&quot;;</string>
+    <string notr="true">font: 28pt &quot;Stencil&quot;;
+border-image: url(:/Resourse/Botones.png);</string>
    </property>
    <property name="text">
     <string>LOAD GAME</string>
@@ -66,14 +66,14 @@ font: 28pt &quot;Stencil&quot;;</string>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>500</y>
-     <width>511</width>
-     <height>101</height>
+     <x>220</x>
+     <y>510</y>
+     <width>361</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-image: url(:/Resourse/Botones.png);
+    <string notr="true">border-image: url(:/Resourse/Botones.png);
 font: 28pt &quot;Stencil&quot;;</string>
    </property>
    <property name="text">
@@ -93,11 +93,29 @@ font: 28pt &quot;Stencil&quot;;</string>
     <string notr="true">background-image: url(:/Resourse/Menu.png);</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>400</y>
+     <width>441</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Resourse/Botones.png);
+font: 28pt &quot;Stencil&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Eliminar partida</string>
+   </property>
+  </widget>
   <zorder>textEdit</zorder>
   <zorder>pushButton</zorder>
   <zorder>label</zorder>
   <zorder>pushButton_4</zorder>
   <zorder>pushButton_2</zorder>
+  <zorder>pushButton_3</zorder>
  </widget>
  <resources/>
  <connections/>

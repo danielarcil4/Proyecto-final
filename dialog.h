@@ -18,6 +18,7 @@
 #include "menu.h"
 #include "pausa.h"
 #include "puntajes.h"
+#include "eliminar_partida.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -55,6 +56,7 @@ private:
     Load_Game *load;
     New_Game *nuevo;
     Puntajes *puntajes;
+    Eliminar_partida *eliminar;
 
     //timers
     QTimer *timer;

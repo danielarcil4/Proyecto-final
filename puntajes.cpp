@@ -36,3 +36,8 @@ Puntajes::~Puntajes()
 {
     delete ui;
 }
+
+void Puntajes::on_pushButton_clicked()
+{
+    this->close();
+}

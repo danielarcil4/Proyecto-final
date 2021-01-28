@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>356</height>
+    <width>659</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -25,10 +25,10 @@
   <widget class="QPlainTextEdit" name="plainTextEdit">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>80</y>
-     <width>351</width>
-     <height>251</height>
+     <x>80</x>
+     <y>90</y>
+     <width>481</width>
+     <height>341</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -41,8 +41,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
+     <x>90</x>
+     <y>20</y>
      <width>451</width>
      <height>51</height>
     </rect>
@@ -61,6 +61,22 @@
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;PUNTUACIONES MAXIMAS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>460</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 16pt &quot;OCR A Extended&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Cerrar</string>
    </property>
   </widget>
  </widget>
