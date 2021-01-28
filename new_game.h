@@ -19,12 +19,16 @@ public:
 
     int getDificultad() const;
 
+    QString getUsuario() const;
+    void setUsuario(const QString &value);
+
 private slots:
     void on_pushButton_clicked();
 
 private:
     Ui::New_Game *ui;
     int dificultad;
+    QString Usuario;
 };
 
 #endif // NEW_GAME_H

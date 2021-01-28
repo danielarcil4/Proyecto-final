@@ -2,7 +2,7 @@
 #define PAUSA_H
 
 #include <QDialog>
-//#include "dialog.h"
+#include "misiones.h"
 
 namespace Ui {
 class Pausa;
@@ -24,10 +24,14 @@ public:
 
     int getLineas() const;
 
+    void setLineas(int value);
+
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::Pausa *ui;
@@ -35,6 +39,7 @@ private:
     bool save;
     int Lineas;
     short int veces;
+    Misiones *misiones;
 };
 
 #endif // PAUSA_H

@@ -12,8 +12,9 @@ Pausa::Pausa(QWidget *parent) :
     ui->setupUi(this);
     reset=false;
     save=false;
-    Lineas=1;
+    Lineas=2;
     veces=1;
+    misiones = new Misiones;
     if(veces==1){
         ifstream Lectura;
         string Data;
@@ -72,7 +73,18 @@ void Pausa::on_pushButton_2_clicked()
     save = true;
 }
 
+void Pausa::setLineas(int value)
+{
+    Lineas = value;
+}
+
 int Pausa::getLineas() const
 {
     return Lineas;
+}
+
+void Pausa::on_pushButton_4_clicked()
+{
+    misiones->setModal(true);
+    misiones->exec();
 }

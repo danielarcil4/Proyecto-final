@@ -57,6 +57,16 @@ void Load_Game::on_pushButton_clicked()
     this->close();
 }
 
+bool Load_Game::getLoadlvl() const
+{
+    return loadlvl;
+}
+
+void Load_Game::setLoadlvl(bool value)
+{
+    loadlvl = value;
+}
+
 QString Load_Game::getUsuario() const
 {
     return Usuario;

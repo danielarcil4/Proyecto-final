@@ -24,7 +24,14 @@
    <string>Video Juego Proyecto Final</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0">
+   <item row="2" column="3">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>100</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4">
     <widget class="QGraphicsView" name="graphicsView">
      <property name="maximumSize">
       <size>
@@ -40,8 +47,22 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QProgressBar" name="progressBar">
+   <item row="2" column="1">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Player 1</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Player 2</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QProgressBar" name="progressBar_2">
      <property name="value">
       <number>100</number>
      </property>

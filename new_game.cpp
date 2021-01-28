@@ -34,10 +34,9 @@ void New_Game::on_pushButton_clicked()
        }
 
     Escritura<< ui->plainTextEdit->toPlainText().toStdString() <<endl;
-    Escritura<< "70,768,60,3,100,1,"+ui->comboBox->currentText().toStdString()+","<<endl;
+    Usuario= ui->plainTextEdit->toPlainText();
+    Escritura<< "70,768,60,3,100,"+ui->comboBox->currentText().toStdString()+","<<endl;
     Escritura.close();
-
-    qDebug()<<ui->comboBox->currentText();
 
     if(ui->comboBox->currentText().toStdString()=="Facil")
         dificultad=1;
@@ -46,6 +45,16 @@ void New_Game::on_pushButton_clicked()
     if(ui->comboBox->currentText().toStdString()=="Dificil")
         dificultad=3;
     this->close();
+}
+
+QString New_Game::getUsuario() const
+{
+    return Usuario;
+}
+
+void New_Game::setUsuario(const QString &value)
+{
+    Usuario = value;
 }
 
 int New_Game::getDificultad() const

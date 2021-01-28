@@ -6,6 +6,7 @@
 #include <QGraphicsItem>
 #include <QKeyEvent>
 #include <sstream>
+#include <QMediaPlayer>
 
 #include "personaje.h"
 #include "obstaculos.h"
@@ -16,7 +17,8 @@
 #include "ventana.h"
 #include "menu.h"
 #include "pausa.h"
-#include "lvl_2.h"
+#include "puntajes.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -34,7 +36,6 @@ public:
 private:
     Ui::Dialog *ui;
     QGraphicsScene *scene;
-    int nivel;
     int dificultad;
 
     //Qlists
@@ -52,8 +53,8 @@ private:
     Menu *menu;
     Pausa *pausa;
     Load_Game *load;
-    Lvl_2 *lvl2;
     New_Game *nuevo;
+    Puntajes *puntajes;
 
     //timers
     QTimer *timer;
@@ -61,9 +62,15 @@ private:
 
     //items
     Contador *tiempo;
+    Contador *tiempo2;
     Vidas *vidas;
+    Vidas *vidas2;
     Personaje *jugador;
+    Personaje *jugador2;
     Obstaculos *Meta;
+    QMediaPlayer *musica;
+    QMediaPlayer *lastimarse;
+
 
 
 signals:

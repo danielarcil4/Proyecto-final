@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui\
+            multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,14 +14,15 @@ SOURCES += \
     contador.cpp \
     enemigo_1.cpp \
     load_game.cpp \
-    lvl_2.cpp \
     main.cpp \
     dialog.cpp \
     menu.cpp \
+    misiones.cpp \
     new_game.cpp \
     obstaculos.cpp \
     pausa.cpp \
     personaje.cpp \
+    puntajes.cpp \
     ventana.cpp \
     vidas.cpp
 
@@ -30,22 +32,24 @@ HEADERS += \
     dialog.h \
     enemigo_1.h \
     load_game.h \
-    lvl_2.h \
     menu.h \
+    misiones.h \
     new_game.h \
     obstaculos.h \
     pausa.h \
     personaje.h \
+    puntajes.h \
     ventana.h \
     vidas.h
 
 FORMS += \
     dialog.ui \
     load_game.ui \
-    lvl_2.ui \
     menu.ui \
+    misiones.ui \
     new_game.ui \
     pausa.ui \
+    puntajes.ui \
     ventana.ui
 
 # Default rules for deployment.
