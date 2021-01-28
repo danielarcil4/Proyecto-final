@@ -55,8 +55,19 @@ void Personaje::setNormal(float value)
     Normal = value;
 }
 
+bool Personaje::getMuerto() const
+{
+    return muerto;
+}
+
+void Personaje::setMuerto(bool value)
+{
+    muerto = value;
+}
+
 Personaje::Personaje()
 {
+    muerto = false;
     filas = 0;
     columnas = 0;
     Vx=0;

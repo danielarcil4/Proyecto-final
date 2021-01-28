@@ -23,10 +23,15 @@ public:
 
     bool getNewGames() const;
 
+    bool getCerrar() const;
+    void setCerrar(bool value);
+
 private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_4_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::Menu *ui;
@@ -34,6 +39,7 @@ private:
     Load_Game *cargar;
     bool loader;
     bool NewGames;
+    bool cerrar;
 };
 
 #endif // MENU_H

@@ -26,6 +26,9 @@ public:
 
     void setLineas(int value);
 
+    bool getCerrar() const;
+    void setCerrar(bool value);
+
 private slots:
     void on_pushButton_clicked();
 
@@ -33,10 +36,12 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::Pausa *ui;
     bool reset;
-    bool save;
+    bool save,cerrar;
     int Lineas;
     short int veces;
     Misiones *misiones;

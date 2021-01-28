@@ -12,7 +12,8 @@ Pausa::Pausa(QWidget *parent) :
     ui->setupUi(this);
     reset=false;
     save=false;
-    Lineas=2;
+    cerrar=false;
+    Lineas=4;
     veces=1;
     misiones = new Misiones;
     if(veces==1){
@@ -87,4 +88,20 @@ void Pausa::on_pushButton_4_clicked()
 {
     misiones->setModal(true);
     misiones->exec();
+}
+
+void Pausa::on_pushButton_3_clicked()
+{
+    cerrar = true;
+    this->close();
+}
+
+bool Pausa::getCerrar() const
+{
+    return cerrar;
+}
+
+void Pausa::setCerrar(bool value)
+{
+    cerrar = value;
 }

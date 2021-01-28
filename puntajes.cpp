@@ -13,7 +13,6 @@ Puntajes::Puntajes(QWidget *parent) :
     ui->setupUi(this);
     ifstream Lectura;
     string puntaje,copiar;
-    QString copia;
 
     Lectura.open("../Proyecto_final/Puntajes.txt");
 
@@ -27,12 +26,9 @@ Puntajes::Puntajes(QWidget *parent) :
         copiar += puntaje+"\n";
         Lectura>>puntaje;
     }
-    for (long long unsigned int i=0;i<copiar.size();i++ ) {
-        copia+=copiar.at(i);
-    }
 
     Lectura.close();
-    ui->plainTextEdit->setPlainText(copia);
+    ui->plainTextEdit->setPlainText(copiar.data());
     ui->plainTextEdit->setReadOnly(true);
 }
 

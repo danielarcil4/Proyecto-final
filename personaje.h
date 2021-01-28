@@ -14,6 +14,7 @@ class Personaje : public QGraphicsItem ,public QObject
     int filas,columnas;
     int ancho,alto;
     float Vx,Vy,masa,Normal;
+    bool muerto;
 public:
     Personaje();
 
@@ -42,6 +43,8 @@ public:
 
     float getNormal() const;
     void setNormal(float value);
+    bool getMuerto() const;
+    void setMuerto(bool value);
 };
 
 #endif // PERSONAJE_H

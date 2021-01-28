@@ -20,7 +20,6 @@ Dialog::Dialog(QWidget *parent)
     menu->exec();
     pausa = new Pausa;
     load = new Load_Game;
-
     lastimarse = new QMediaPlayer;
     if(menu->getLoader()){
         load->setModal(true);
@@ -73,7 +72,6 @@ Dialog::Dialog(QWidget *parent)
     Disparador1->setPos(720,790);
     scene->addItem(Disparador1);
 
-
     musica->setMedia(QUrl("qrc:/Resourse/melodyloops-preview-badass-life-2m30s.mp3"));
     musica->play();
 
@@ -120,17 +118,17 @@ Dialog::Dialog(QWidget *parent)
     scene->addItem(Meta);
 
     jugador = new Personaje();
-    jugador->setPos(70,768);
+    jugador->setPos(3900,768);
     //jugador2
     jugador2 = new Personaje();
-    jugador2->setPos(90,768);
+    jugador2->setPos(3900,768);
 
     scene->addItem(jugador);
     scene->addItem(jugador2);
     //
     if(load->getLoad()==true){
         ifstream Lectura;
-        string ID,cargar;
+        string ID,ID2,cargar;
 
         Lectura.open("../Proyecto_final/Usuarios.txt");
 
@@ -141,13 +139,17 @@ Dialog::Dialog(QWidget *parent)
            }
         Lectura>>ID;
 
-
         while(!Lectura.eof()){
             if(ID == load->getUsuario().toStdString()){
                Lectura>>ID;
+               Lectura>>ID2;
+               load->setUsuario2(ID2.data());
+               Lectura>>ID2;
                break;
             }
             else{
+                Lectura>>ID;
+                Lectura>>ID;
                 Lectura>>ID;
                 Lectura>>ID;
             }
@@ -197,8 +199,45 @@ Dialog::Dialog(QWidget *parent)
             }
 
         }
+        int x2=0,y2=0;
+        for (long long unsigned int i=0,I=0,cont=0; i<ID2.length();i++) {
+            if(ID2.at(i)==','){
+                cargar = ID2.substr(I,i-I);
+                I=i+1;
+                if(cont==0)
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x2 += (cargar.at(h)-48)*pow(10,H);
+                if(cont==1)
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        y2 += (cargar.at(h)-48)*pow(10,H);
+                if(cont==2){
+                    jugador2->setPos(x2,y2);
+                    x2=0;
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x2 += (cargar.at(h)-48)*pow(10,H);
+                }
+                if(cont==3){
+                    tiempo2->setcontador(x2);
+                    x2=0;
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x2 += (cargar.at(h)-48)*pow(10,H);
+                }
+                if(cont==4){
+                    vidas2->setVidas(x2+1);
+                    vidas2->Decrementar();
+                    x2=0;
+                    for (long long unsigned int h=0,H=cargar.length()-1;h<cargar.length() ;h++,H--)
+                        x2 += (cargar.at(h)-48)*pow(10,H);
+                    ui->progressBar_2->setValue(x2);
+                }
+                cont++;
+            }
+
+        }
+
+        load->setLoad(false);
     }
-    load->setLoad(false);
+
 
     timer = new QTimer();
     timer->start(100);
@@ -227,110 +266,115 @@ void Dialog::keyPressEvent(QKeyEvent *evento)
         tiempo2->setContadorEn0(false);
         connect(tiempo2->timer,&QTimer::timeout,tiempo2,&Contador::Decrementar);
         break;
-    case Qt::Key_W:
-        for (int I=0;I<Obstaculo.size();I++){
-            if(jugador->y()>765 or jugador->collidesWithItem(Obstaculo.at(I))){
-                jugador->setVel(jugador->getVx(),-60);
-            }
-        }
-
-        break;
-    case Qt::Key_A:
-        jugador->setVel(-20,jugador->getVy());
-        for (int I=0;I<Pantano.size();I++) {
-            if(jugador->x()>Pantano.at(I)->x()-130 and jugador->x()<Pantano.at(I)->x()+130 and jugador->y()>755)
-                jugador->setVel(-5,jugador->getVy());
-
-        }
-
-        tiempo->setPos(jugador->x()+150,tiempo->y());
-        vidas->setPos(jugador->x(),vidas->y());
-        jugador->Pixmap = new QPixmap(":/Resourse/Personaje 1.png");
-
-        jugador->setColumnas(jugador->getColumnas()+96);
-        if(jugador->getColumnas()>=576){
-            jugador->setColumnas(0);
-        }
-        this->update(-jugador->getAncho()/2,-jugador->getAlto()/2,jugador->getAncho(),jugador->getAlto());
-
-        for (int i=0;i<Obstaculo.size();i++ ) {
-            if((jugador->x()<Obstaculo.at(i)->x()+20 and jugador->x()>Obstaculo.at(i)->x()) and jugador->y()>Obstaculo.at(i)->y()-120)
-                jugador->setVel(jugador->getVx()+20,jugador->getVy());
-        }
-        break;
-    case Qt::Key_D:
-        jugador->setVel(20,jugador->getVy());
-        for (int I=0;I<Pantano.size();I++) {
-            if(jugador->x()>Pantano.at(I)->x()-130 and jugador->x()<Pantano.at(I)->x()+130 and jugador->y()>755)
-                jugador->setVel(5,jugador->getVy());           
-        }
-        tiempo->setPos(jugador->x()+150,tiempo->y());
-        vidas->setPos(jugador->x(),vidas->y());
-        jugador->Pixmap = new QPixmap(":/Resourse/Personaje 1 reverso.png");
-        jugador->setColumnas(jugador->getColumnas()+96);
-        if(jugador->getColumnas()>=576){
-            jugador->setColumnas(0);
-        }
-        this->update(-jugador->getAncho()/2,-jugador->getAlto()/2,jugador->getAncho(),jugador->getAlto());
-
-        for (int i=0;i<Obstaculo.size();i++ ) {
-            if((jugador->x()>Obstaculo.at(i)->x()-20 and jugador->x()<Obstaculo.at(i)->x()) and jugador->y()>Obstaculo.at(i)->y()-120)
-                jugador->setVel(jugador->getVx()-20,jugador->getVy());
+        if(jugador->getMuerto()==false){
+            case Qt::Key_W:
+                for (int I=0;I<Obstaculo.size();I++){
+                    if(jugador->y()>765 or jugador->collidesWithItem(Obstaculo.at(I))){
+                        jugador->setVel(jugador->getVx(),-60);
+                    }
                 }
 
-        break;
+                break;
+            case Qt::Key_A:
+                jugador->setVel(-20,jugador->getVy());
+                for (int I=0;I<Pantano.size();I++) {
+                    if(jugador->x()>Pantano.at(I)->x()-130 and jugador->x()<Pantano.at(I)->x()+130 and jugador->y()>755)
+                        jugador->setVel(-5,jugador->getVy());
+
+                }
+
+                tiempo->setPos(jugador->x()+150,tiempo->y());
+                vidas->setPos(jugador->x(),vidas->y());
+                jugador->Pixmap = new QPixmap(":/Resourse/Personaje 1.png");
+
+                jugador->setColumnas(jugador->getColumnas()+96);
+                if(jugador->getColumnas()>=576){
+                    jugador->setColumnas(0);
+                }
+                this->update(-jugador->getAncho()/2,-jugador->getAlto()/2,jugador->getAncho(),jugador->getAlto());
+
+                for (int i=0;i<Obstaculo.size();i++ ) {
+                    if((jugador->x()<Obstaculo.at(i)->x()+20 and jugador->x()>Obstaculo.at(i)->x()) and jugador->y()>Obstaculo.at(i)->y()-120)
+                        jugador->setVel(jugador->getVx()+20,jugador->getVy());
+                }
+                break;
+            case Qt::Key_D:
+                jugador->setVel(20,jugador->getVy());
+                for (int I=0;I<Pantano.size();I++) {
+                    if(jugador->x()>Pantano.at(I)->x()-130 and jugador->x()<Pantano.at(I)->x()+130 and jugador->y()>755)
+                        jugador->setVel(5,jugador->getVy());
+                }
+                tiempo->setPos(jugador->x()+150,tiempo->y());
+                vidas->setPos(jugador->x(),vidas->y());
+                jugador->Pixmap = new QPixmap(":/Resourse/Personaje 1 reverso.png");
+                jugador->setColumnas(jugador->getColumnas()+96);
+                if(jugador->getColumnas()>=576){
+                    jugador->setColumnas(0);
+                }
+                this->update(-jugador->getAncho()/2,-jugador->getAlto()/2,jugador->getAncho(),jugador->getAlto());
+
+                for (int i=0;i<Obstaculo.size();i++ ) {
+                    if((jugador->x()>Obstaculo.at(i)->x()-20 and jugador->x()<Obstaculo.at(i)->x()) and jugador->y()>Obstaculo.at(i)->y()-120)
+                        jugador->setVel(jugador->getVx()-20,jugador->getVy());
+                        }
+
+                break;
+        }
+
 //jugador2
-    case Qt::Key_I:
-        for (int I=0;I<Obstaculo.size();I++){
-            if(jugador2->y()>765 or jugador2->collidesWithItem(Obstaculo.at(I))){
-                jugador2->setVel(jugador2->getVx(),-60);
-            }
-        }
-
-        break;
-    case Qt::Key_J:
-        jugador2->setVel(-20,jugador2->getVy());
-        for (int I=0;I<Pantano.size();I++) {
-            if(jugador2->x()>Pantano.at(I)->x()-130 and jugador2->x()<Pantano.at(I)->x()+130 and jugador2->y()>755)
-                jugador2->setVel(-5,jugador2->getVy());
-
-        }
-        tiempo2->setPos(jugador2->x()+150,tiempo2->y());
-        vidas2->setPos(jugador2->x(),vidas2->y());
-        jugador2->Pixmap = new QPixmap(":/Resourse/Player_2.png");
-
-        jugador2->setColumnas(jugador2->getColumnas()+96);
-        if(jugador2->getColumnas()>=576){
-            jugador2->setColumnas(0);
-        }
-        this->update(-jugador2->getAncho()/2,-jugador2->getAlto()/2,jugador2->getAncho(),jugador2->getAlto());
-
-        for (int i=0;i<Obstaculo.size();i++ ) {
-            if((jugador2->x()<Obstaculo.at(i)->x()+20 and jugador2->x()>Obstaculo.at(i)->x()) and jugador2->y()>Obstaculo.at(i)->y()-120)
-                jugador2->setVel(jugador2->getVx()+20,jugador2->getVy());
-        }
-        break;
-    case Qt::Key_L:
-        jugador2->setVel(20,jugador2->getVy());
-        for (int I=0;I<Pantano.size();I++) {
-            if(jugador2->x()>Pantano.at(I)->x()-130 and jugador2->x()<Pantano.at(I)->x()+130 and jugador2->y()>755)
-                jugador2->setVel(5,jugador2->getVy());
-        }
-        tiempo2->setPos(jugador2->x()+150,tiempo2->y());
-        vidas2->setPos(jugador2->x(),vidas2->y());
-        jugador2->Pixmap = new QPixmap(":/Resourse/Player_2_reverse.png");
-        jugador2->setColumnas(jugador2->getColumnas()+96);
-        if(jugador2->getColumnas()>=576){
-            jugador2->setColumnas(0);
-        }
-        this->update(-jugador2->getAncho()/2,-jugador2->getAlto()/2,jugador2->getAncho(),jugador2->getAlto());
-
-        for (int i=0;i<Obstaculo.size();i++ ) {
-            if((jugador2->x()>Obstaculo.at(i)->x()-20 and jugador2->x()<Obstaculo.at(i)->x()) and jugador2->y()>Obstaculo.at(i)->y()-120)
-                jugador2->setVel(jugador2->getVx()-20,jugador2->getVy());
+        if(jugador2->getMuerto()==false){
+            case Qt::Key_I:
+                for (int I=0;I<Obstaculo.size();I++){
+                    if(jugador2->y()>765 or jugador2->collidesWithItem(Obstaculo.at(I))){
+                        jugador2->setVel(jugador2->getVx(),-60);
+                    }
                 }
 
-        break;
+                break;
+            case Qt::Key_J:
+                jugador2->setVel(-20,jugador2->getVy());
+                for (int I=0;I<Pantano.size();I++) {
+                    if(jugador2->x()>Pantano.at(I)->x()-130 and jugador2->x()<Pantano.at(I)->x()+130 and jugador2->y()>755)
+                        jugador2->setVel(-5,jugador2->getVy());
+
+                }
+                tiempo2->setPos(jugador2->x()+150,tiempo2->y());
+                vidas2->setPos(jugador2->x(),vidas2->y());
+                jugador2->Pixmap = new QPixmap(":/Resourse/Player_2.png");
+
+                jugador2->setColumnas(jugador2->getColumnas()+96);
+                if(jugador2->getColumnas()>=576){
+                    jugador2->setColumnas(0);
+                }
+                this->update(-jugador2->getAncho()/2,-jugador2->getAlto()/2,jugador2->getAncho(),jugador2->getAlto());
+
+                for (int i=0;i<Obstaculo.size();i++ ) {
+                    if((jugador2->x()<Obstaculo.at(i)->x()+20 and jugador2->x()>Obstaculo.at(i)->x()) and jugador2->y()>Obstaculo.at(i)->y()-120)
+                        jugador2->setVel(jugador2->getVx()+20,jugador2->getVy());
+                }
+                break;
+            case Qt::Key_L:
+                jugador2->setVel(20,jugador2->getVy());
+                for (int I=0;I<Pantano.size();I++) {
+                    if(jugador2->x()>Pantano.at(I)->x()-130 and jugador2->x()<Pantano.at(I)->x()+130 and jugador2->y()>755)
+                        jugador2->setVel(5,jugador2->getVy());
+                }
+                tiempo2->setPos(jugador2->x()+150,tiempo2->y());
+                vidas2->setPos(jugador2->x(),vidas2->y());
+                jugador2->Pixmap = new QPixmap(":/Resourse/Player_2_reverse.png");
+                jugador2->setColumnas(jugador2->getColumnas()+96);
+                if(jugador2->getColumnas()>=576){
+                    jugador2->setColumnas(0);
+                }
+                this->update(-jugador2->getAncho()/2,-jugador2->getAlto()/2,jugador2->getAncho(),jugador2->getAlto());
+
+                for (int i=0;i<Obstaculo.size();i++ ) {
+                    if((jugador2->x()>Obstaculo.at(i)->x()-20 and jugador2->x()<Obstaculo.at(i)->x()) and jugador2->y()>Obstaculo.at(i)->y()-120)
+                        jugador2->setVel(jugador2->getVx()-20,jugador2->getVy());
+                        }
+
+                break;
+        }
         //
     }
 
@@ -344,6 +388,9 @@ Dialog::~Dialog()
 
 void Dialog::saltar()
 {
+    if(menu->getCerrar()==true or pausa->getCerrar()==true){
+        this->close();
+    }
     jugador->setPos( jugador->x() + jugador->getVx() , jugador->y() + jugador->getVy() );
     //jugador2
     jugador2->setPos( jugador2->x() + jugador2->getVx() , jugador2->y() + jugador2->getVy() );
@@ -392,13 +439,29 @@ void Dialog::saltar()
                     if(vidas->getVidas()==0){
                         lastimarse->setMedia(QUrl("qrc:/Resourse/010740965_prev.mp3"));
                         lastimarse->play();
+                        scene->removeItem(jugador);
+                        jugador->setMuerto(true);
+                        //
+                        }
+                    //jugador2
+                    if(vidas->getVidas()==0 and vidas2->getVidas()==0){
                         ventana = new Ventana;
                         ventana->setModal(true);
                         ventana->exec();
+                        scene->addItem(jugador);
+                        scene->addItem(jugador2);
+                        tiempo->setContadorEn0(false);
+                        connect(tiempo->timer,&QTimer::timeout,tiempo,&Contador::Decrementar);
+                        tiempo2->setContadorEn0(false);
+                        connect(tiempo2->timer,&QTimer::timeout,tiempo2,&Contador::Decrementar);
                         tiempo->setcontador(60);
                         vidas->setVidas(4);
                         vidas->Decrementar();
+                        tiempo2->setcontador(60);
+                        vidas2->setVidas(4);
+                        vidas2->Decrementar();
                         }
+                    //
                     }
                 }
         }
@@ -436,9 +499,22 @@ void Dialog::saltar()
                     if(vidas2->getVidas()==0){
                         lastimarse->setMedia(QUrl("qrc:/Resourse/010740965_prev.mp3"));
                         lastimarse->play();
+                        scene->removeItem(jugador2);
+                        jugador2->setMuerto(true);
+                        }
+                    if(vidas->getVidas()==0 and vidas2->getVidas()==0){
                         ventana = new Ventana;
                         ventana->setModal(true);
                         ventana->exec();
+                        tiempo->setContadorEn0(false);
+                        connect(tiempo->timer,&QTimer::timeout,tiempo,&Contador::Decrementar);
+                        tiempo2->setContadorEn0(false);
+                        connect(tiempo2->timer,&QTimer::timeout,tiempo2,&Contador::Decrementar);
+                        scene->addItem(jugador);
+                        scene->addItem(jugador2);
+                        tiempo->setcontador(60);
+                        vidas->setVidas(4);
+                        vidas->Decrementar();
                         tiempo2->setcontador(60);
                         vidas2->setVidas(4);
                         vidas2->Decrementar();
@@ -465,16 +541,30 @@ void Dialog::saltar()
       i = -10;
       Ave->Pixmap = new QPixmap(":/Resourse/Vulture_attack.png");
     }
+    int Puntaje=0,Puntaje2=0;
     if(jugador->x()>4000){
-        lastimarse->setMedia(QUrl("qrc:/Resourse/010740965_prev.mp3"));
+        lastimarse->setMedia(QUrl("qrc:/Resourse/bites-ta-da-winner.mp3"));
         lastimarse->play();
-        int Puntaje;
         Puntaje = 10*(tiempo->getcontador()/5)+(vidas->getVidas()*10);
         if(ui->progressBar->value()==100)Puntaje+=10;
+        jugador->setMuerto(true);
+        scene->removeItem(jugador);
+    }
+    //jugador2
+    if(jugador2->x()>4000){
+        lastimarse->setMedia(QUrl("qrc:/Resourse/bites-ta-da-winner.mp3"));
+        lastimarse->play();
+        Puntaje2 = 10*(tiempo2->getcontador()/5)+(vidas2->getVidas()*10);
+        if(ui->progressBar_2->value()==100)Puntaje2+=10;
+        jugador2->setMuerto(true);
+        scene->removeItem(jugador2);
+    }
+    //
+    if(jugador->x()>4000 and jugador2->x()>4000){
         this->close();
         delete ui;
         ofstream Escritura;
-        stringstream puntaje;
+        stringstream puntaje,puntaje2;
         Escritura.open("../Proyecto_final/Puntajes.txt",std::ios::app);
 
         if (!Escritura.is_open())
@@ -483,20 +573,30 @@ void Dialog::saltar()
             exit(1);
            }
         puntaje<<Puntaje;
-        if(menu->getLoader())
+        puntaje2<<Puntaje2;
+        if(menu->getLoader()){
             Escritura<< load->getUsuario().toStdString() + "   " + puntaje.str()+"\n"<<endl;
-        else
+            Escritura<< load->getUsuario2().toStdString() + "   " + puntaje2.str()+"\n"<<endl;
+        }
+        else{
             Escritura<< nuevo->getUsuario().toStdString() + "   " + puntaje.str()+"\n"<<endl;
+            Escritura<< nuevo->getUsuario2().toStdString() + "   " + puntaje2.str()+"\n"<<endl;
+        }
         Escritura.close();
         puntajes = new Puntajes;
         puntajes->setModal(true);
         puntajes->exec();
 
     }
+
     if(tiempo->getcontador()<=0){
         tiempo->setContadorEn0(true);
     }
-
+    //jugador2
+    if(tiempo2->getcontador()<=0){
+        tiempo2->setContadorEn0(true);
+    }
+//
     if(pausa->getReset()){
         jugador->setPos(70,768);
         jugador->setVel(0,0);
@@ -518,32 +618,43 @@ void Dialog::saltar()
     else if(pausa->getSave()){
         ofstream Escritura;
         ifstream Lectura;
-        string Datos,Guardar="",dific;
+        string Datos,Guardar="",dific,usuario2;
         stringstream posx,posy,cont,lives,bar,lvl;
+        stringstream posx2,posy2,cont2,lives2,bar2;
 
-        int x;
+        int x,x2;
         Lectura.open("../Proyecto_final/Usuarios.txt");
-        Lectura>>Datos;
-        if(menu->getLoader())
-            pausa->setLineas(pausa->getLineas()-2);
-        for (int i=0;i<pausa->getLineas()-1;i++){
-            Guardar+=Datos+"\n";
-            Lectura>>Datos;
-        }
-        Lectura.close();
+        Lectura>>Datos;       
         x=jugador->x();
+        x2=jugador2->x();
         posx << x;
         posy<<jugador->y();
         cont<<tiempo->getcontador();
         lives<<vidas->getVidas();
         bar<<ui->progressBar->value();
+        posx2 << x2;
+        posy2<<jugador2->y();
+        cont2<<tiempo2->getcontador();
+        lives2<<vidas2->getVidas();
+        bar2<<ui->progressBar_2->value();
         if(dificultad==1)
             dific="Facil";
         if(dificultad==2)
             dific="Normal";
         if(dificultad==3)
             dific="Dificil";
-        Guardar += posx.str()+","+posy.str()+","+cont.str()+","+lives.str()+","+bar.str()+","+dific+",";
+        if(menu->getLoader())
+            pausa->setLineas(pausa->getLineas()-4);
+        for (int i=0;i<pausa->getLineas();i++){
+            if(i!=pausa->getLineas()-3 and i!=pausa->getLineas()-1)
+                Guardar+=Datos+"\n";
+            if(i==pausa->getLineas()-3)
+                Guardar += posx.str()+","+posy.str()+","+cont.str()+","+lives.str()+","+bar.str()+","+dific+","+"\n";
+            if(i==pausa->getLineas()-1)
+                Guardar += posx2.str()+","+posy2.str()+","+cont2.str()+","+lives2.str()+","+bar2.str()+","+dific+",";
+            Lectura>>Datos;
+        }
+        Lectura.close();
 
         Escritura.open("../Proyecto_final/Usuarios.txt");
 

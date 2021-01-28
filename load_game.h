@@ -24,6 +24,9 @@ public:
     bool getLoadlvl() const;
     void setLoadlvl(bool value);
 
+    QString getUsuario2() const;
+    void setUsuario2(const QString &value);
+
 private slots:
     void on_pushButton_2_clicked();
 
@@ -34,7 +37,7 @@ private slots:
 private:
     Ui::Load_Game *ui;
     bool load;
-    QString Usuario;
+    QString Usuario,Usuario2;
     bool loadlvl;
     //QString loadId;
 };

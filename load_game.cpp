@@ -29,6 +29,8 @@ Load_Game::Load_Game(QWidget *parent) :
         ui->comboBox->addItem(QString(ID.data()));
         Lectura>>ID;
         Lectura>>ID;
+        Lectura>>ID;
+        Lectura>>ID;
     }
 
     Lectura.close();
@@ -55,6 +57,16 @@ void Load_Game::on_pushButton_clicked()
     load = true;
     Usuario = ui->comboBox->currentText();
     this->close();
+}
+
+QString Load_Game::getUsuario2() const
+{
+    return Usuario2;
+}
+
+void Load_Game::setUsuario2(const QString &value)
+{
+    Usuario2 = value;
 }
 
 bool Load_Game::getLoadlvl() const

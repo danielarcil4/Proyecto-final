@@ -12,7 +12,7 @@ New_Game::New_Game(QWidget *parent) :
     ui(new Ui::New_Game)
 {
     ui->setupUi(this);
-    dificultad=0;
+    dificultad=1;
 }
 
 New_Game::~New_Game()
@@ -36,6 +36,9 @@ void New_Game::on_pushButton_clicked()
     Escritura<< ui->plainTextEdit->toPlainText().toStdString() <<endl;
     Usuario= ui->plainTextEdit->toPlainText();
     Escritura<< "70,768,60,3,100,"+ui->comboBox->currentText().toStdString()+","<<endl;
+    Escritura<< ui->plainTextEdit_2->toPlainText().toStdString() <<endl;
+    Usuario2= ui->plainTextEdit_2->toPlainText();
+    Escritura<< "70,768,60,3,100,"+ui->comboBox->currentText().toStdString()+","<<endl;
     Escritura.close();
 
     if(ui->comboBox->currentText().toStdString()=="Facil")
@@ -45,6 +48,16 @@ void New_Game::on_pushButton_clicked()
     if(ui->comboBox->currentText().toStdString()=="Dificil")
         dificultad=3;
     this->close();
+}
+
+QString New_Game::getUsuario2() const
+{
+    return Usuario2;
+}
+
+void New_Game::setUsuario2(const QString &value)
+{
+    Usuario2 = value;
 }
 
 QString New_Game::getUsuario() const

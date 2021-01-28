@@ -9,6 +9,7 @@ Menu::Menu(QWidget *parent) :
     ui->setupUi(this);
     loader = false;
     NewGames = false;
+    cerrar=false;
 }
 
 Menu::~Menu()
@@ -41,4 +42,20 @@ bool Menu::getLoader() const
 void Menu::setLoader(bool value)
 {
     loader = value;
+}
+
+void Menu::on_pushButton_2_clicked()
+{
+    cerrar=true;
+    this->close();
+}
+
+bool Menu::getCerrar() const
+{
+    return cerrar;
+}
+
+void Menu::setCerrar(bool value)
+{
+    cerrar = value;
 }
