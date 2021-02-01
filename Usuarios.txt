@@ -1,13 +1,9 @@
 
-Santiago
+prueba
 70,768,60,3,100,Facil,
-Cristian 
+Prueba
 70,768,60,3,100,Facil,
-carlos
+prueba	
 70,768,60,3,100,Dificil,
-martica
+pruueba
 70,768,60,3,100,Dificil,
-a
-70,768,60,3,100,Facil,
-s
-70,768,60,3,100,Facil,

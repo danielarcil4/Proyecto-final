@@ -75,8 +75,9 @@ Dialog::Dialog(QWidget *parent)
     musica->setMedia(QUrl("qrc:/Resourse/melodyloops-preview-badass-life-2m30s.mp3"));
     musica->play();
 
+
     Ave = new Enemigo_1();
-    Ave->setPos(1625,720);
+    Ave->setPos(1625,670);
     Ave->setAlto(70);
     Ave->setAncho(70);
     Ave->Pixmap = new QPixmap(":/Resourse/Vulture_attack.png");
@@ -99,7 +100,7 @@ Dialog::Dialog(QWidget *parent)
     //jugador2
     tiempo2 = new Contador();
     scene->addItem(tiempo2);
-    tiempo2->setPos(220,100);
+    tiempo2->setPos(220,70);
     tiempo2->setcontador(60);
     //
     vidas = new Vidas();
@@ -108,7 +109,7 @@ Dialog::Dialog(QWidget *parent)
     //jugador2
     vidas2 = new Vidas();
     scene->addItem(vidas2);
-    vidas2->setPos(70,100);
+    vidas2->setPos(70,70);
     //
     Meta = new Obstaculos();
     Meta->setPos(4000,765);
@@ -388,6 +389,11 @@ Dialog::~Dialog()
 
 void Dialog::saltar()
 {
+
+    if(jugador->x()<jugador2->x())
+        scene->setSceneRect(jugador2->x()-500,0,4500,930);
+    else
+        scene->setSceneRect(jugador->x()-500,0,4500,930);
     if(menu->getCerrar()==true or pausa->getCerrar()==true){
         this->close();
     }
